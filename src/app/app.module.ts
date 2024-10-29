@@ -24,6 +24,7 @@ import { LogInComponent } from './pages/web/log-in/log-in.component';
 import { FormularioReservasComponent } from './pages/web/reservas/formulario-reservas/formulario-reservas.component';
 import { FacturaReservasComponent } from './pages/web/reservas/factura-reservas/factura-reservas.component';
 import { Footer2Component } from './components/footer2/footer2.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { Footer2Component } from './components/footer2/footer2.component';
     NgbModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

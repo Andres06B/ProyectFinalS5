@@ -138,20 +138,20 @@
       </div>
       <div class="col-md-4" *ngFor="let habitacion of habitaciones">
         <div class="card mb-4 shadow-sm">
-          <img class="card-img-top" [src]="habitacion.imagen" alt="Habitación {{ habitacion.nombre }}" />
+          <img class="card-img-top"  />
           <div class="card-body">
             <h5 class="card-title">{{ habitacion.nombre }}</h5>
-            <p class="card-text">{{ habitacion.descripcion }}</p>
+            <p class="card-text">{{ habitacion.tipo}}</p>
             <ul class="list-unstyled">
               <li>
-                <i class="bi bi-check-circle"></i> {{ habitacion.servicios }}
+                <i class="bi bi-check-circle"></i> {{ habitacion.estado }}
               </li>
             </ul>
             <div class="d-flex justify-content-between align-items-center">
               <span class="text-muted"><strong>Precio:</strong> ${{ habitacion.precio }}</span>
-              <a href="/FormularioReservas" class="btn btn-primary">
-                <i class="bi bi-calendar-plus"></i> Reservar
-              </a>
+              <button (click)="seleccionarHabitacion(habitacion)" class="btn btn-primary">
+                  <i class="bi bi-calendar-plus" ></i> Reservar
+              </button>
             </div>
           </div>
         </div>
