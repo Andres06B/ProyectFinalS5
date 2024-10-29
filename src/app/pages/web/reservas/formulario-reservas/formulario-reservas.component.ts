@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HabSeleccionadaService } from '../../../../Services/HabitacionSeleccionada/hab-seleccionada.service';
 
 @Component({
   selector: 'app-formulario-reservas',
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./formulario-reservas.component.css']
 })
 export class FormularioReservasComponent {
+  id_habitacion: number | null = null;
   formData = {
     checkIn: '',
     checkOut: '',
@@ -35,7 +37,12 @@ export class FormularioReservasComponent {
   isProcessingPayment: boolean = false;
   ratePerNight: number = 100;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private habitacionSeleccionadaService: HabSeleccionadaService) {}
+
+  ngOnInit() {
+    const id = this.habitacionSeleccionadaService.getHabitacionSeleccionada();
+  console.log('ID de habitación seleccionada: ', id);
+  }
 
   agregarAcompanante() {
     this.formData.acompanantes.push({ nombre: '', tipoDocumento: '', documento: '' });
@@ -90,7 +97,6 @@ export class FormularioReservasComponent {
     setTimeout(() => {
       this.cerrarModal();
       this.isProcessingPayment = false;
-     
       this.router.navigate(['/FacturaReservas']);
     }, 2000);
   }
