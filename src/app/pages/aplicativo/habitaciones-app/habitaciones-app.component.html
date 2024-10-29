@@ -1,0 +1,38 @@
+<div class="container">
+  <h2 class="title">Habitaciones Reservadas</h2>
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre de Habitación</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let habitacion of habitaciones; let i = index" class="table-row">
+        <td>{{ i + 1 }}</td>
+        <td>{{ habitacion.nombre }}</td>
+        <td>
+          <button class="btn" (click)="abrirModal(habitacion)">
+            <i class="fas fa-info-circle"></i> Mostrar Detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="cerrarModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ habitacionSeleccionada?.nombre }}</h5>
+        <span class="close" (click)="cerrarModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        {{ habitacionSeleccionada?.detalles }}
+      </div>
+      <div class="modal-footer">
+        <button class="btn" (click)="cerrarModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

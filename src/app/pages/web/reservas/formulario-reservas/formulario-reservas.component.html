@@ -1,0 +1,169 @@
+<div class="container my-4 p-4 border rounded shadow-lg">
+    
+    <h2 class="text-center mb-4">Formulario de Reserva</h2>
+
+    
+    <div class="form-section mb-5">
+        <h4><i class="bi bi-calendar"></i> Fechas de Reserva</h4>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="checkIn" class="form-label">Fecha de Entrada</label>
+                <input type="date" id="checkIn" class="form-control" [(ngModel)]="formData.checkIn" [min]="minCheckInDate" required>
+            </div>
+            <div class="col-md-6">
+                <label for="checkOut" class="form-label">Fecha de Salida</label>
+                <input type="date" id="checkOut" class="form-control" [(ngModel)]="formData.checkOut" [min]="formData.checkIn || minCheckInDate" required>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="form-section mb-5">
+        <h4><i class="bi bi-person"></i> Datos Personales</h4>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" class="form-control" [(ngModel)]="formData.nombre" required>
+            </div>
+            <div class="col-md-6">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" id="apellido" class="form-control" [(ngModel)]="formData.apellido" required>
+            </div>
+            <div class="col-md-4">
+                <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
+                <select id="tipoDocumento" class="form-select" [(ngModel)]="formData.tipoDocumento" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="DNI">DNI</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                    <option value="Licencia de Conducir">Licencia de Conducir</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="documento" class="form-label">Número de Documento</label>
+                <input type="text" id="documento" class="form-control" [(ngModel)]="formData.documento" required>
+            </div>
+            <div class="col-md-4">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" id="fechaNacimiento" class="form-control" [(ngModel)]="formData.fechaNacimiento" [max]="minBirthDate" required>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="formData.email" required>
+            </div>
+            <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" id="telefono" class="form-control" [(ngModel)]="formData.telefono" required>
+            </div>
+            <div class="col-md-6">
+                <label for="nacionalidad" class="form-label">Nacionalidad</label>
+                <input type="text" id="nacionalidad" class="form-control" [(ngModel)]="formData.nacionalidad" required>
+            </div>
+            <div class="col-md-6">
+                <label for="ciudad" class="form-label">Ciudad</label>
+                <input type="text" id="ciudad" class="form-control" [(ngModel)]="formData.ciudad" required>
+            </div>
+            <div class="col-md-6">
+                <label for="pais" class="form-label">País</label>
+                <input type="text" id="pais" class="form-control" [(ngModel)]="formData.pais" required>
+            </div>
+            <div class="col-md-12">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" id="direccion" class="form-control" [(ngModel)]="formData.direccion" required>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="form-section mb-5">
+        <h4><i class="bi bi-people"></i> Acompañantes</h4>
+        <div *ngFor="let acompanante of formData.acompanantes; let i = index" class="mb-4 border rounded p-3 bg-light">
+            <h5>Acompañante {{ i + 1 }}</h5>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="nombreAcompanante{{i}}" class="form-label">Nombre</label>
+                    <input type="text" id="nombreAcompanante{{i}}" class="form-control" [(ngModel)]="acompanante.nombre" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="tipoDocumentoAcompanante{{i}}" class="form-label">Tipo de Documento</label>
+                    <select id="tipoDocumentoAcompanante{{i}}" class="form-select" [(ngModel)]="acompanante.tipoDocumento" required>
+                        <option value="" disabled selected>Seleccionar</option>
+                        <option value="DNI">DNI</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        <option value="Licencia de Conducir">Licencia de Conducir</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="documentoAcompanante{{i}}" class="form-label">Documento</label>
+                    <input type="text" id="documentoAcompanante{{i}}" class="form-control" [(ngModel)]="acompanante.documento" required>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-outline-primary" (click)="agregarAcompanante()">
+            <i class="bi bi-person-plus"></i> Agregar Acompañante
+        </button>
+    </div>
+    
+    <div class="form-section mb-5">
+        <h4><i class="bi bi-credit-card"></i> Información de Pago</h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
+                <select id="tipoTarjeta" class="form-select" [(ngModel)]="formData.tipoTarjeta" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <option value="Visa">Visa</option>
+                    <option value="MasterCard">MasterCard</option>
+                    <option value="American Express">American Express</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
+                <input type="text" id="numTarjeta" class="form-control" [(ngModel)]="formData.numTarjeta" required>
+            </div>
+            <div class="col-md-2">
+                <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
+                <input type="text" id="expTarjeta" class="form-control" [(ngModel)]="formData.expTarjeta" placeholder="MM/AA" required>
+            </div>
+            <div class="col-md-2">
+                <label for="cvcTarjeta" class="form-label">CVC</label>
+                <input type="text" id="cvcTarjeta" class="form-control" [(ngModel)]="formData.cvcTarjeta" required>
+            </div>
+        </div>
+        
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label for="montoAPagar" class="form-label">Monto a Pagar</label>
+                <input type="number" id="montoAPagar" class="form-control" [(ngModel)]="formData.montoAPagar" required>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="text-center mt-4">
+        <button class="btn btn-success btn-lg" (click)="procesarPago()" [disabled]="isProcessingPayment">
+            <i [class.bi-check-circle]="!isProcessingPayment" [class.bi-hourglass-split]="isProcessingPayment"></i>
+            {{ isProcessingPayment ? 'Procesando Pago...' : 'Confirmar Reserva' }}
+        </button>
+    </div>
+    
+<div *ngIf="showModal" class="modal-backdrop d-flex align-items-center justify-content-center">
+    <div class="modal-content text-center p-4">
+        <h3>Confirmación de Pago</h3>
+        <p>¿Desea confirmar la reserva?</p>
+        <div *ngIf="!isProcessingPayment; else loading">
+            <button class="btn btn-success" (click)="confirmarPago()">Confirmar</button>
+            <button class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+        </div>
+        
+        <ng-template #loading>
+            <div class="d-flex justify-content-center my-3">
+                <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Procesando...</span>
+                </div>
+            </div>
+            <p>Procesando pago, por favor espere...</p>
+        </ng-template>
+    </div>
+</div>
+
+
+</div>

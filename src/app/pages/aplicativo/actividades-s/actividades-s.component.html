@@ -1,0 +1,69 @@
+<div class="container suggested-activities">
+  <h2 class="section-title">Sugerencias de Actividades</h2>
+  <p class="lead">Explora y reserva actividades emocionantes ofrecidas por <strong>Mundo Travel</strong></p>
+  <div class="row">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let activity of activities">
+      <div class="card shadow-sm activity-card">
+        <div class="card-body text-center">
+          <i class="{{ activity.icon }} activity-icon"></i>
+          <h5 class="card-title">{{ activity.title }}</h5>
+          <p class="card-text">{{ activity.description }}</p>
+          <ul class="list-unstyled">
+            <li *ngFor="let offer of activity.offers">
+              <i class="bi bi-tag-fill"></i> {{ offer }}
+            </li>
+          </ul>
+          <button class="btn btn-primary w-100 mt-2" (click)="openReservationModal(activity)">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reservationModalLabel">Reserva - {{ selectedActivity?.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ selectedActivity?.description }}</p>
+          <div class="mb-3">
+            <label for="dateInput" class="form-label">Selecciona la fecha:</label>
+            <input type="date" id="dateInput" class="form-control" [(ngModel)]="selectedDate" [min]="today">
+          </div>
+          <div class="mb-3">
+            <label for="companionInput" class="form-label">Acompañantes:</label>
+            <input type="number" id="companionInput" class="form-control" min="0" placeholder="Número de acompañantes">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="reserveActivity()">
+            <span *ngIf="!loading">Reservar</span>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmationModalLabel">Confirmación de Reserva</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¡Su actividad ha sido reservada exitosamente!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="closeConfirmation()">Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

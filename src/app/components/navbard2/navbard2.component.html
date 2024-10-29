@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-custom-bg">
+    <div class="container-fluid">
+      
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="Imagen1.png" alt="Logo Empresa" width="45" height="45" class="me-2 logo">
+        <span class="navbar-title">New Iguanas's House</span>
+      </a>
+  
+      
+      <div class="social-icons ms-auto">
+        <a href="https://facebook.com" target="_blank" class="social-link">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" class="social-link">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-link">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+  
+     
+      <div class="user-profile ms-3 d-flex align-items-center" (click)="toggleProfile()">
+        <img [src]="profilePicture" alt="Foto Usuario" class="rounded-circle profile-img border shadow-sm" width="45" height="45">
+        <div class="user-info ms-2">
+          <span class="user-name">{{ userName }}</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+ 
+  <div *ngIf="showUserProfile" class="overlay" (click)="hideProfile()"></div>
+  
+  
+  <section *ngIf="showUserProfile" class="profile-section p-4 bg-light border rounded shadow-lg" (click)="$event.stopPropagation()">
+    <h5>Perfil de Usuario</h5>
+    <div class="d-flex align-items-center mb-4">
+      <img [src]="profilePicture" alt="Foto Usuario" class="rounded-circle border profile-picture" width="120" height="120">
+      <div class="ms-3">
+        <p><strong>Nombre:</strong> {{ userName }} {{ userLastName }}</p>
+        <p><strong>Correo:</strong> {{ userEmail }}</p>
+        <p><strong>Nacionalidad:</strong> {{ userNationality }}</p>
+        <p><strong>Edad:</strong> {{ userAge }} años</p>
+  
+        
+        <div class="change-pic-container">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" id="fileInput" style="display: none;" />
+          <label for="fileInput" class="btn btn-outline-secondary change-pic-btn">Cambiar Imagen</label>
+        </div>
+      </div>
+    </div>
+    
+    <button class="btn btn-danger" (click)="confirmLogout()">Cerrar Sesión</button>
+  </section>
+  
+  
+  <div *ngIf="showConfirmModal" class="modal-overlay" (click)="closeConfirmModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeConfirmModal()">&times;</span>
+      <h5>Confirmar Cierre de Sesión</h5>
+      <p>¿Está seguro de que desea cerrar sesión?</p>
+      <button class="btn btn-danger" (click)="logout()">Confirmar</button>
+      <button class="btn btn-secondary" (click)="closeConfirmModal()">Cancelar</button>
+    </div>
+  </div>
+  
+
+  <div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+  

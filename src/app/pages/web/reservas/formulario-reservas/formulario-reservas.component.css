@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f8fb;
+    color: #193940;
+}
+
+
+.container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+h2 {
+    color: #009970;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* Section titles */
+.form-section h4 {
+    font-weight: 500;
+    color: #7abf5a;
+    margin-bottom: 1rem;
+}
+
+
+.form-label {
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid #d1e0e5;
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+    background-color: #f4f8fb;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #7abf5a;
+    box-shadow: 0 0 8px rgba(123, 191, 90, 0.2);
+    outline: none;
+}
+
+
+.btn-outline-primary {
+    color: #009970;
+    border-color: #009970;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #009970;
+    color: #ffffff;
+}
+
+
+.btn-success {
+    background-color: #7abf5a;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #9bf272;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(123, 191, 90, 0.3);
+}
+
+
+.bi {
+    color: #7abf5a;
+    transition: color 0.3s ease;
+}
+
+.bi:hover {
+    color: #193940;
+}
+
+
+.form-section .border.rounded.p-3.bg-light {
+    background-color: #e9f2ef;
+    border: 1px solid #d1e0e5;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.form-section .border.rounded.p-3.bg-light:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container,
+.form-section h4,
+.btn-outline-primary,
+.btn-success {
+    animation: fadeIn 0.4s ease both;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="tel"],
+input[type="email"],
+select {
+    animation: fadeIn 0.4s ease both;
+    animation-delay: 0.1s;
+}
+
+button {
+    cursor: pointer;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+}
+
+.modal-content {
+    max-width: 500px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.modal-content h3 {
+    color: #009970;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.modal-content p {
+    color: #4a4a4a;
+    font-weight: 400;
+}
+
+.modal-content .btn-success,
+.modal-content .btn-secondary {
+    margin-top: 15px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-top: 1rem;
+}

@@ -1,0 +1,273 @@
+<app-navbard></app-navbard>
+
+<section class="hero-section text-center">
+    <div class="container"></div>
+  </section>
+  <div class="container text-center py-5">
+    <h2 class="mb-4 titulo-reserva" style="color: #009970">Haz tu Reserva</h2>
+    <p>
+      Reserva una habitación con todas las comodidades que ofrecemos para que tu
+      estancia sea perfecta.
+    </p>
+    <div class="row mt-5">
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="icon mb-3">
+            <i class="bi bi-calendar-check-fill icono-reserva"></i>
+          </div>
+          <h5 class="card-title">Reserva Fácil</h5>
+          <p class="card-text">
+            Selecciona tus fechas con un par de clics y confirma tu reserva en
+            minutos.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="icon mb-3">
+            <i class="bi bi-credit-card-fill icono-reserva"></i>
+          </div>
+          <h5 class="card-title">Pago Seguro</h5>
+          <p class="card-text">
+            Paga de manera segura con diferentes métodos de pago disponibles.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-4">
+          <div class="icon mb-3">
+            <i class="bi bi-headset icono-reserva"></i>
+          </div>
+          <h5 class="card-title">Atención 24/7</h5>
+          <p class="card-text">
+            Nuestro equipo está disponible para ayudarte en cualquier momento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5 pt-5">
+    <div class="row align-items-center">
+      
+      <div class="col-lg-6 mb-4">
+        <div class="card shadow-lg p-4 border-0">
+          <h3 style="text-align: center">
+            <i class="bi bi-calendar-check" style="color: #009970"></i> Buscar Disponibilidad
+          </h3>
+          <form #formulario="ngForm" (ngSubmit)="consultarDisponibilidad()" novalidate>
+            <div class="form-group mb-3">
+              <label for="checkin">
+                <i class="bi bi-box-arrow-in-right"></i> Check-in:
+              </label>
+              <input
+                type="date"
+                id="checkin"
+                class="form-control"
+                [(ngModel)]="checkin"
+                name="checkin"
+                [min]="minDate" 
+                required
+              />
+            </div>
+            <div class="form-group mb-3">
+              <label for="checkout">
+                <i class="bi bi-box-arrow-left"></i> Check-out:
+              </label>
+              <input
+                type="date"
+                id="checkout"
+                class="form-control"
+                [(ngModel)]="checkout"
+                name="checkout"
+                [min]="checkin || minDate" 
+                required
+              />
+            </div>
+            <div class="form-row mb-3">
+              <div class="col">
+                <label for="adultos">
+                  <i class="bi bi-people-fill"></i> Adultos >13:
+                </label>
+                <select class="form-control" id="adultos" [(ngModel)]="adultos" name="adultos" required>
+                  <option [ngValue]="null" disabled selected>Seleccionar</option>
+                  <option *ngFor="let i of [1, 2, 3, 4, 5,6,7,8,9,10]" [ngValue]="i">{{ i }}</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="ninos">
+                  <i class="bi bi-person"></i> Niños 0-12:
+                </label>
+                <select class="form-control" id="ninos" [(ngModel)]="ninos" name="ninos" required>
+                  <option [ngValue]="null" disabled selected>Seleccionar</option>
+                  <option *ngFor="let i of [0, 1, 2, 3,4,5,6,7,8,9,10]" [ngValue]="i">{{ i }}</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="formulario.invalid">
+              <i class="bi bi-search"></i> Consultar
+            </button>
+            <div *ngIf="formulario.invalid && formulario.touched" class="alert alert-danger mt-3">
+              Por favor, llena todos los campos requeridos.
+            </div>
+          </form>
+        </div>
+      </div>
+  
+     
+      <div class="col-lg-6">
+        <div class="d-flex justify-content-center">
+          <img
+            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/c7/6e/30/ubicacion-cartagena-centro.jpg?w=700&h=-1&s=1"
+            class="img-fluid rounded shadow-lg" alt="Hotel Las Américas" />
+        </div>
+        <div class="mt-4">
+          <h5>Ciudad De Cartagena</h5>
+          <p class="text-muted">
+            Ciudad Patrimonio Histórico de la Humanidad, el Hotel Las Américas te
+            ofrece infinitas opciones para liberar tu inspiración en un ambiente
+            autóctono, con un servicio amable y todas las cualidades de un hotel cinco estrellas.
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    
+    <div *ngIf="mostrarHabitaciones" class="row mt-5">
+      <div class="col-12">
+        <h1 style="color: #009970">Habitaciones Disponibles</h1>
+      </div>
+      <div class="col-md-4" *ngFor="let habitacion of habitaciones">
+        <div class="card mb-4 shadow-sm">
+          <img class="card-img-top" [src]="habitacion.imagen" alt="Habitación {{ habitacion.nombre }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ habitacion.nombre }}</h5>
+            <p class="card-text">{{ habitacion.descripcion }}</p>
+            <ul class="list-unstyled">
+              <li>
+                <i class="bi bi-check-circle"></i> {{ habitacion.servicios }}
+              </li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="text-muted"><strong>Precio:</strong> ${{ habitacion.precio }}</span>
+              <a href="/FormularioReservas" class="btn btn-primary">
+                <i class="bi bi-calendar-plus"></i> Reservar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section class="testimonios py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Lo que nuestros clientes dicen</h2>
+      <div id="carouselTestimonios" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="d-flex flex-column align-items-center">
+              <img
+                src="https://bunny-wp-pullzone-ed0aiswr6p.b-cdn.net/wp-content/uploads/2020/08/dia-do-cliente-eficaz-scaled.jpg"
+                class="rounded-circle mb-4" alt="Cliente 1" width="100" />
+              <p class="lead">
+                "Una experiencia inolvidable, el servicio fue de primera y las
+                habitaciones muy cómodas."
+              </p>
+              <small class="text-muted">- Cliente 1</small>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="d-flex flex-column align-items-center">
+              <img
+                src="https://bunny-wp-pullzone-ed0aiswr6p.b-cdn.net/wp-content/uploads/2020/08/dia-do-cliente-eficaz-scaled.jpg"
+                class="rounded-circle mb-4" alt="Cliente 2" width="100" />
+              <p class="lead">
+                "El hotel es maravilloso, volveré cada vez que visite Cartagena."
+              </p>
+              <small class="text-muted">- Cliente 2</small>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="d-flex flex-column align-items-center">
+              <img
+                src="https://bunny-wp-pullzone-ed0aiswr6p.b-cdn.net/wp-content/uploads/2020/08/dia-do-cliente-eficaz-scaled.jpg"
+                class="rounded-circle mb-4" alt="Cliente 3" width="100" />
+              <p class="lead">
+                "Increíble atención y excelente ubicación. Lo recomiendo 100%."
+              </p>
+              <small class="text-muted">- Cliente 3</small>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTestimonios" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </section>
+  <section class="servicios-section">
+    <div class="container"></div>
+  </section>
+  
+  <section class="faq py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Preguntas Frecuentes</h2>
+      <div class="accordion" id="accordionFAQ">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1"
+              aria-expanded="true" aria-controls="faqCollapse1">
+              ¿Cómo puedo cancelar mi reserva?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faq1"
+            data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              Puedes cancelar tu reserva hasta 24 horas antes del check-in sin
+              ningún costo. Después de este periodo, se cobrará una tarifa.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              ¿Hay servicio de transporte al aeropuerto?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faq2"
+            data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              Sí, ofrecemos servicio de transporte al aeropuerto con un costo
+              adicional. Puedes solicitarlo al hacer tu reserva.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              ¿Cuáles son los horarios de check-in y check-out?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faq3"
+            data-bs-parent="#accordionFAQ">
+            <div class="accordion-body">
+              El check-in es a partir de las 3:00 PM y el check-out hasta las
+              12:00 PM.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+<app-footer></app-footer>

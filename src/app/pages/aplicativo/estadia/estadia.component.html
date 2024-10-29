@@ -1,0 +1,47 @@
+<div class="container">
+    <h2 class="title">Habitaciones Reservadas</h2>
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Fecha de Entrada</th>
+                <th>Fecha de Salida</th>
+                <th>Habitaciones Reservadas</th>
+                <th>Ocupación</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let habitacion of habitaciones; let i = index" class="table-row">
+                <td>{{ i + 1 }}</td>
+                <td>{{ habitacion.fechaEntrada }}</td>
+                <td>{{ habitacion.fechaSalida }}</td>
+                <td>{{ habitacion.numHabitaciones }}</td>
+                <td>{{ habitacion.ocupacion }}</td>
+                <td>
+                    <button class="btn" (click)="abrirModal(habitacion)">
+                        <i class="fas fa-info-circle"></i> Mostrar Detalles
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="cerrarModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles de Habitación</h5>
+                <span class="close" (click)="cerrarModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p><strong>Fecha de Entrada:</strong> {{ habitacionSeleccionada?.fechaEntrada }}</p>
+                <p><strong>Fecha de Salida:</strong> {{ habitacionSeleccionada?.fechaSalida }}</p>
+                <p><strong>Habitaciones Reservadas:</strong> {{ habitacionSeleccionada?.numHabitaciones }}</p>
+                <p><strong>Ocupación:</strong> {{ habitacionSeleccionada?.ocupacion }}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" (click)="cerrarModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

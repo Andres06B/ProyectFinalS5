@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+     
+      <div class="text-center mb-4">
+        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+      </div>
+  
+     
+      <h2 class="text-center mb-3">¡Pago Exitoso!</h2>
+      <p class="text-center text-muted">
+        Puedes descargar tu factura a continuación.
+      </p>
+  
+     
+      <div class="text-center mt-4">
+        <button class="btn btn-primary btn-lg me-3" (click)="generarFacturaPDF()">
+          <i class="bi bi-file-earmark-arrow-down"></i> Descargar Factura
+        </button>
+        <button class="btn btn-outline-secondary btn-lg" (click)="volverAlInicio()">
+          <i class="bi bi-house-door"></i> Volver al Inicio
+        </button>
+      </div>
+    </div>
+  </div>
+  

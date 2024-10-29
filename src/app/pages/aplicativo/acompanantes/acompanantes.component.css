@@ -1,0 +1,173 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f3f5;
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.container-fluid {
+    padding: 40px 20px;
+    text-align: center;
+    flex-grow: 1;
+    margin-bottom: 60px; 
+}
+
+
+.main-title {
+    color: black;
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+
+.description {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 35px;
+}
+
+
+.companions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+
+.companion-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    padding-top: 20px; 
+}
+
+.companion-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #009970;
+    color: #fff;
+}
+
+.icon-container {
+    margin-right: 15px;
+}
+
+.companion-icon {
+    font-size: 2.5rem;
+}
+
+
+.companion-info h2 {
+    font-size: 1.4rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.companion-info p {
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.8;
+}
+
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.age-info {
+    margin-bottom: 15px;
+    color: #777;
+}
+
+
+.btn-info {
+    background-color: #007d5c;
+    border: none;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-info:hover {
+    background-color: #005a3c;
+    transform: scale(1.07);
+}
+
+
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.modal-header {
+    background-color: #009970;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-title {
+    font-size: 1.6rem;
+}
+
+.modal-body {
+    font-size: 1rem;
+    color: #555;
+    padding: 15px;
+}
+
+.modal-footer {
+    justify-content: flex-end;
+}
+
+.close {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.close:hover {
+    color: #ddd;
+}
+
+
+@media (max-width: 576px) {
+    .companions-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .companion-card {
+        width: 100%;
+        max-width: 400px; 
+    }
+}
+
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}

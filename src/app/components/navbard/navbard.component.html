@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg fixed-top custom-navbar" id="navbar" [ngClass]="{'hidden': !navbarVisible}">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="Imagen1.png" alt="Logo de Iguana's House" class="navbar-logo" />
+      <span class="brand-name">New Iguanas's House</span>
+    </a>
+
+    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">New Iguanas's House</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" routerLink="/Home">
+              <i class="bi bi-house"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" routerLink="/Habitaciones">
+              <i class="bi bi-door-open"></i> Habitaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" routerLink="/Servicios">
+              <i class="bi bi-calendar-minus-fill"></i> Servicios
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" routerLink="/Reservas">
+              <i class="bi bi-calendar-check"></i> Reservar
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2" routerLink="/Nosotros">
+              <i class="bi bi-people"></i> Nosotros
+            </a>
+          </li>
+          <li class="nav-item d-lg-none">
+            <a href="/Log-in" class="btn login-button mt-3 w-100">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <a href="/Log-in" class="btn login-button me-2 d-none d-lg-inline-block">
+      <i class="bi bi-box-arrow-in-right"></i> Log-In
+    </a>
+  </div>
+</nav>

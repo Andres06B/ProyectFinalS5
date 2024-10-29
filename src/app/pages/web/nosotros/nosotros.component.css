@@ -1,0 +1,115 @@
+.hero-section {
+    background: url('https://www.hotelesestelar.com/sites/all/themes/files/destino/Cartagena.jpg') no-repeat center center/cover;
+    background-size: cover;
+    padding: 170px 30px;
+    position: relative;
+    color: white;
+    text-align: center;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+.about-us-section {
+    background-color: #f9f9f9;
+    padding: 60px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.list-unstyled li {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.list-unstyled i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.img-fluid {
+    border-radius: 15px; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.img-fluid:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+
+.about-us-section .row .text-center i {
+    font-size: 3rem;
+}
+
+.about-us-section .row .text-center h3 {
+    font-size: 1.8rem;
+    margin-top: 15px;
+}
+
+.about-us-section .row .text-center p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-top: 15px;
+    color: #555;
+}
+
+.check-in-section {
+    background: url('https://assets-us-01.kc-usercontent.com/b2956330-c34f-0064-2c6f-27bd5c0147fc/bcbe9d49-0255-41b2-b3e9-3bc49a3adaee/Piezas-Nuevo-Destino-JS---Cartagena-de-Indias---1920x500-V1.jpg') no-repeat center center;
+    background-size: cover;
+    color: #ffffff;
+    padding: 4rem 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.check-in-section::before {
+    color: #ffffff;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.check-in-section * {
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+
+.check-in-section .btn {
+    padding: 0.625rem 1.875rem;
+    border-radius: 1.875rem;
+    background-color: #3eb489;
+}

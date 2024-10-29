@@ -1,0 +1,100 @@
+.custom-navbar {
+  background-color: #193940;
+  padding: 10px 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-logo {
+  width: 40px;
+  margin-right: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.1);
+}
+
+.brand-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-link {
+  color: #bac8d9;
+  font-size: 1.1rem;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #25D162;
+}
+
+.nav-link i {
+  margin-right: 4px;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #25D162;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::before {
+  width: 100%;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;base64,...'); 
+}
+
+.login-button {
+  background-color: #25D162;
+  color: white;
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #25D162;
+  box-shadow: 0 4px 10px rgba(155, 242, 114, 0.5);
+}
+
+
+.offcanvas-header {
+  background-color: #193940;
+  color: #25D162;
+}
+
+.offcanvas-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+}
+
+.btn-close {
+  filter: invert(100%);
+}
+.custom-navbar {
+  background-color: #193940;
+  padding: 10px 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: top 0.3s; 
+}
+
+.hidden {
+  top: -100px; 
+}
+
+
+@media (max-width: 992px) {
+  .navbar-nav .nav-item {
+    margin-top: 10px;
+  }
+}

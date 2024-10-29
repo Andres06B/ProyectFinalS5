@@ -1,0 +1,55 @@
+<app-navbard2></app-navbard2>
+
+<!-- Contenedor principal para las secciones -->
+<div class="container-fluid main-content">
+  <!-- Sección de bienvenida -->
+  <div *ngIf="seccionActual === 'bienvenida'" class="welcome-container">
+    <h1 class="main-title">¡Bienvenido a Tu Experiencia Inolvidable!</h1>
+    <p class="description">Descubre los servicios y actividades que harán de tu estadía un momento único y especial.</p>
+
+    <!-- Tarjetas de características -->
+    <div class="features row justify-content-center">
+      <div class="feature col-3">  <!-- Cambia col-md-3 a col-3 -->
+        <div class="icon-container animate-icon">
+          <i class="fas fa-bed"></i>
+        </div>
+        <h2>Habitaciones</h2>
+        <p>Explora nuestras opciones de habitaciones confortables y personalizadas para ti.</p>
+      </div>
+
+      <div class="feature col-3">  <!-- Cambia col-md-3 a col-3 -->
+        <div class="icon-container animate-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h2>Acompañantes</h2>
+        <p>Invita a tus seres queridos y comparte la experiencia de tu viaje con ellos.</p>
+      </div>
+      <div class="feature col-3">  <!-- Cambia col-md-3 a col-3 -->
+        <div class="icon-container animate-icon">
+          <i class="fas fa-bicycle"></i>
+        </div>
+        <h2>Actividades</h2>
+        <p>Explora las actividades más emocionantes y haz que tu viaje sea inolvidable.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secciones dinámicas de la aplicación -->
+  <div *ngIf="seccionActual === 'HabitacionesApp'">
+    <app-habitaciones-app></app-habitaciones-app>
+  </div>
+  
+  <div *ngIf="seccionActual === 'Acompañantes'">
+    <app-acompanantes></app-acompanantes>
+  </div>
+  
+  <div *ngIf="seccionActual === 'Estadia'">
+    <app-estadia></app-estadia>
+  </div>
+  
+  <div *ngIf="seccionActual === 'Actividades'">
+    <app-actividades-s></app-actividades-s>
+  </div>
+</div>
+
+<app-footer2 (seccionCambiada)="cambiarSeccion($event)"></app-footer2>
