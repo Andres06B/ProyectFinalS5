@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HabSeleccionadaService } from '../../../../Services/HabitacionSeleccionada/hab-seleccionada.service';
+import { UsuariosService } from '../../../../Services/Usuarios/usuarios.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from '../../../../Interfaces/usuario/usuario.interface';
 
 @Component({
   selector: 'app-formulario-reservas',
@@ -19,7 +22,6 @@ export class FormularioReservasComponent {
     fechaNacimiento: '',
     email: '',
     telefono: '',
-    nacionalidad: '',
     ciudad: '',
     pais: '',
     direccion: '',
@@ -31,17 +33,34 @@ export class FormularioReservasComponent {
     montoAPagar: 0
   };
 
+  usuarioForm: FormGroup;
+
   minCheckInDate = new Date().toISOString().split('T')[0];
   minBirthDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0];
   showModal: boolean = false;
   isProcessingPayment: boolean = false;
   ratePerNight: number = 100;
+  usuariosService: any;
+  Id_usuario: number | undefined;
 
-  constructor(private router: Router, private habitacionSeleccionadaService: HabSeleccionadaService) {}
+  constructor(private router: Router, private habitacionSeleccionadaService: HabSeleccionadaService, private usuario: UsuariosService) { 
+    this.usuarioForm = new FormGroup({
+      tipo_documento: new FormControl('', [Validators.required]),
+      numero_documento: new FormControl('', [Validators.required]),
+      nombre: new FormControl('', [Validators.required]),
+      apellido: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      fecha_nacimiento: new FormControl('', [Validators.required]),
+      telefono: new FormControl('', [Validators.required]),
+      ciudad: new FormControl('', [Validators.required]),
+      pais: new FormControl('', [Validators.required]),
+      direccion: new FormControl('', [Validators.required]),
+    });
+  }
 
   ngOnInit() {
     const id = this.habitacionSeleccionadaService.getHabitacionSeleccionada();
-  console.log('ID de habitación seleccionada: ', id);
+    console.log('ID de habitación seleccionada: ', id);
   }
 
   agregarAcompanante() {
@@ -51,7 +70,7 @@ export class FormularioReservasComponent {
   esFormularioValido(): boolean {
     const { checkIn, checkOut, nombre, apellido, tipoDocumento, documento, fechaNacimiento, email, telefono, tipoTarjeta, numTarjeta, expTarjeta, cvcTarjeta, montoAPagar } = this.formData;
 
-    
+
     if (!checkIn || !checkOut || !nombre || !apellido || !tipoDocumento || !documento || !fechaNacimiento || !email || !telefono || !tipoTarjeta || !numTarjeta || !expTarjeta || !cvcTarjeta || !montoAPagar) {
       return false;
     }
@@ -63,7 +82,7 @@ export class FormularioReservasComponent {
       return false;
     }
 
-    
+
 
     return true;
   }
@@ -99,5 +118,32 @@ export class FormularioReservasComponent {
       this.isProcessingPayment = false;
       this.router.navigate(['/FacturaReservas']);
     }, 2000);
+  }
+
+  ObtenerUsuario(){};
+  GuardarUsuario() {
+    if (this.usuarioForm.valid) {
+      const Usuario: Usuario = this.usuarioForm.value;
+      console.log('Datos enviados al backend:', Usuario); 
+      this.usuario.guardarUsuario(Usuario).subscribe({
+        next: (usuarioGuardado: Usuario) => {
+          console.log('Usuario guardado:', usuarioGuardado);
+          this.BuscarUsuario();
+        },
+        error: (error: any) => {
+          console.error('Error al guardar el usuario:', error);
+        }
+      });
+    }
+  };
+
+  BuscarUsuario(){
+    const nombre= this.usuarioForm.value.nombre;
+    const apellido= this.usuarioForm.value.apellido;
+    console.log('Nombre y Apellido:', nombre, apellido);
+    this.usuario.obtenerUsuario(nombre, apellido).subscribe((usuario: Usuario) => {
+      this.Id_usuario = usuario.id_usuario;
+      console.log('Usuario obtenido:', usuario);
+    });
   }
 }
