@@ -20,57 +20,55 @@
     
     <div class="form-section mb-5">
         <h4><i class="bi bi-person"></i> Datos Personales</h4>
+        <form [formGroup]="usuarioForm" (ngSubmit)="GuardarUsuario()">
         <div class="row g-3">
             <div class="col-md-6">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" id="nombre" class="form-control" [(ngModel)]="formData.nombre" required>
+                <input type="text" id="nombre" class="form-control" formControlName="nombre" [(ngModel)]="formData.nombre" required>
             </div>
             <div class="col-md-6">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" id="apellido" class="form-control" [(ngModel)]="formData.apellido" required>
+                <input type="text" id="apellido" class="form-control" formControlName="apellido" [(ngModel)]="formData.apellido" required>
             </div>
             <div class="col-md-4">
                 <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
-                <select id="tipoDocumento" class="form-select" [(ngModel)]="formData.tipoDocumento" required>
+                <select id="tipoDocumento" class="form-select" formControlName="tipo_documento" [(ngModel)]="formData.tipoDocumento" required>
                     <option value="" disabled selected>Seleccionar</option>
-                    <option value="DNI">DNI</option>
+                    <option value="CC">Cedula de ciudadanía</option>
                     <option value="Pasaporte">Pasaporte</option>
                     <option value="Licencia de Conducir">Licencia de Conducir</option>
                 </select>
             </div>
             <div class="col-md-4">
                 <label for="documento" class="form-label">Número de Documento</label>
-                <input type="text" id="documento" class="form-control" [(ngModel)]="formData.documento" required>
+                <input type="text" id="documento" class="form-control" formControlName="numero_documento" [(ngModel)]="formData.documento" required>
             </div>
             <div class="col-md-4">
                 <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" id="fechaNacimiento" class="form-control" [(ngModel)]="formData.fechaNacimiento" [max]="minBirthDate" required>
+                <input type="date" id="fechaNacimiento" class="form-control" formControlName="fecha_nacimiento" [(ngModel)]="formData.fechaNacimiento" [max]="minBirthDate" required>
             </div>
             <div class="col-md-6">
                 <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" id="email" class="form-control" [(ngModel)]="formData.email" required>
+                <input type="email" id="email" class="form-control" formControlName="email" [(ngModel)]="formData.email" required>
             </div>
             <div class="col-md-6">
                 <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" id="telefono" class="form-control" [(ngModel)]="formData.telefono" required>
-            </div>
-            <div class="col-md-6">
-                <label for="nacionalidad" class="form-label">Nacionalidad</label>
-                <input type="text" id="nacionalidad" class="form-control" [(ngModel)]="formData.nacionalidad" required>
+                <input type="tel" id="telefono" class="form-control" formControlName="telefono" [(ngModel)]="formData.telefono" required>
             </div>
             <div class="col-md-6">
                 <label for="ciudad" class="form-label">Ciudad</label>
-                <input type="text" id="ciudad" class="form-control" [(ngModel)]="formData.ciudad" required>
+                <input type="text" id="ciudad" class="form-control" formControlName="ciudad" [(ngModel)]="formData.ciudad" required>
             </div>
             <div class="col-md-6">
                 <label for="pais" class="form-label">País</label>
-                <input type="text" id="pais" class="form-control" [(ngModel)]="formData.pais" required>
+                <input type="text" id="pais" class="form-control" formControlName="pais" [(ngModel)]="formData.pais" required>
             </div>
             <div class="col-md-12">
                 <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" id="direccion" class="form-control" [(ngModel)]="formData.direccion" required>
+                <input type="text" id="direccion" class="form-control" formControlName="direccion" [(ngModel)]="formData.direccion" required>
             </div>
         </div>
+        </form>
     </div>
 
    
@@ -139,7 +137,7 @@
 
     
     <div class="text-center mt-4">
-        <button class="btn btn-success btn-lg" (click)="procesarPago()" [disabled]="isProcessingPayment">
+        <button class="btn btn-success btn-lg" (click)="GuardarUsuario()" (click)="procesarPago()"  [disabled]="isProcessingPayment">
             <i [class.bi-check-circle]="!isProcessingPayment" [class.bi-hourglass-split]="isProcessingPayment"></i>
             {{ isProcessingPayment ? 'Procesando Pago...' : 'Confirmar Reserva' }}
         </button>

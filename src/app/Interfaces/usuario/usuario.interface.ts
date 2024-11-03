@@ -5,7 +5,7 @@ export interface Usuario {
     nombre: string;
     apellido: string;
     email: string;
-    edad: number;
+    fecha_nacimiento: Date;
     telefono: string;
     ciudad: string;
     pais: string;
