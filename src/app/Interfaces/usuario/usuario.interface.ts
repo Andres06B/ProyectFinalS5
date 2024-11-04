@@ -15,7 +15,7 @@ export interface Usuario {
 
 export interface Acompañante {
     id_acompañante?: number;
-    usuario: number;
+    usuario?: number;
     nombre: string;
     tipo_documento: string;
     numero_documento: string;

@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'Reservas', component: ReservasComponent
   },
   {
-    path: 'FormularioReservas/:id', component: FormularioReservasComponent
+    path: 'FormularioReservas', component: FormularioReservasComponent
   },
   {
     path: 'FacturaReservas', component: FacturaReservasComponent

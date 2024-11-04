@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HabSeleccionadaService } from '../../../../Services/HabitacionSeleccionada/hab-seleccionada.service';
+
 import { UsuariosService } from '../../../../Services/Usuarios/usuarios.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from '../../../../Interfaces/usuario/usuario.interface';
+import { Acompañante, Usuario } from '../../../../Interfaces/usuario/usuario.interface';
 
 @Component({
   selector: 'app-formulario-reservas',
@@ -33,6 +33,7 @@ export class FormularioReservasComponent {
     montoAPagar: 0
   };
 
+  acompananteForm: FormGroup;
   usuarioForm: FormGroup;
 
   minCheckInDate = new Date().toISOString().split('T')[0];
@@ -40,10 +41,9 @@ export class FormularioReservasComponent {
   showModal: boolean = false;
   isProcessingPayment: boolean = false;
   ratePerNight: number = 100;
-  usuariosService: any;
   Id_usuario: number | undefined;
 
-  constructor(private router: Router, private habitacionSeleccionadaService: HabSeleccionadaService, private usuario: UsuariosService) { 
+  constructor(private router: Router, private usuario: UsuariosService) { 
     this.usuarioForm = new FormGroup({
       tipo_documento: new FormControl('', [Validators.required]),
       numero_documento: new FormControl('', [Validators.required]),
@@ -56,11 +56,18 @@ export class FormularioReservasComponent {
       pais: new FormControl('', [Validators.required]),
       direccion: new FormControl('', [Validators.required]),
     });
+
+    this.acompananteForm = new FormGroup({
+      nombre: new FormControl('', [Validators.required]),
+      tipo_documento: new FormControl('', [Validators.required]),
+      numero_documento: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit() {
-    const id = this.habitacionSeleccionadaService.getHabitacionSeleccionada();
+    const id = sessionStorage.getItem('Habitacion seleccionada');
     console.log('ID de habitación seleccionada: ', id);
+    if(id) this.id_habitacion = Number(id);
   }
 
   agregarAcompanante() {
@@ -120,7 +127,6 @@ export class FormularioReservasComponent {
     }, 2000);
   }
 
-  ObtenerUsuario(){};
   GuardarUsuario() {
     if (this.usuarioForm.valid) {
       const Usuario: Usuario = this.usuarioForm.value;
@@ -143,7 +149,27 @@ export class FormularioReservasComponent {
     console.log('Nombre y Apellido:', nombre, apellido);
     this.usuario.obtenerUsuario(nombre, apellido).subscribe((usuario: Usuario) => {
       this.Id_usuario = usuario.id_usuario;
-      console.log('Usuario obtenido:', usuario);
+      console.log('Usuario obtenido con el ID:', usuario.id_usuario);
+      this.GuardarAcompanante();
     });
+  }
+
+  GuardarAcompanante() {
+    if (this.acompananteForm.valid && this.Id_usuario) {
+      const Acompañante: Acompañante = {
+        ...this.acompananteForm.value,
+        usuario: this.Id_usuario 
+      };
+
+      console.log('Datos enviados al backend:', Acompañante);
+      this.usuario.guardarAcompañante(Acompañante).subscribe({
+        next: (acompañanteGuardado: Acompañante) => {
+          console.log('Acompañante guardado:', acompañanteGuardado);
+        },
+        error: (error: any) => {
+          console.error('Error al guardar el acompañante:', error);
+        }
+      });
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Habitacion } from '../../../Interfaces/habitacion/habitacion.interface'
 import { HabitacionService } from '../../../Services/Habitacion/habitacion.service';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
-import { HabSeleccionadaService } from '../../../Services/HabitacionSeleccionada/hab-seleccionada.service';
+
 
 @Component({
   selector: 'app-reservas',
@@ -23,7 +23,7 @@ export class ReservasComponent {
   minDate: string;
 
 
-  constructor(private service: HabitacionService, private router: Router, private habitacionSeleccionadaService: HabSeleccionadaService) {	
+  constructor(private service: HabitacionService, private router: Router, ) {	
     const today = new Date();
     this.minDate = this.formatDate(today);
   }
@@ -33,7 +33,7 @@ export class ReservasComponent {
   }
 
   seleccionarHabitacion(habitacion: Habitacion) {
-    this.habitacionSeleccionadaService.setHabitacionSeleccionada(habitacion.id_habitacion);
+    sessionStorage.setItem('Habitacion seleccionada',habitacion.id_habitacion.toString());
     this.NavegarFormularioReserva();
   }
   
@@ -73,6 +73,6 @@ export class ReservasComponent {
   }
 
   NavegarFormularioReserva(){
-    this.router.navigate(['/FormularioReservas', this.habitacionSeleccionada])
+    this.router.navigate(['/FormularioReservas'])
   }
 }
