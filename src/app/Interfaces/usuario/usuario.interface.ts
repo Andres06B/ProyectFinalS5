@@ -1,5 +1,5 @@
 export interface Usuario {
-    id_usuario?: number;
+    id_usuario: number;
     tipo_documento: string;
     numero_documento: string;
     nombre: string;
@@ -14,8 +14,8 @@ export interface Usuario {
 }
 
 export interface Acompañante {
-    id_acompañante?: number;
-    usuario?: number;
+    id_acompañante: number;
+    usuario: number;
     nombre: string;
     tipo_documento: string;
     numero_documento: string;

@@ -1,22 +1,24 @@
+<form action="">
 <div class="container my-4 p-4 border rounded shadow-lg">
-
     <h2 class="text-center mb-4">Formulario de Reserva</h2>
 
 
     <div class="form-section mb-5">
-        <h4><i class="bi bi-calendar"></i> Fechas de Reserva</h4>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label for="checkIn" class="form-label">Fecha de Entrada</label>
-                <input type="date" id="checkIn" class="form-control" [(ngModel)]="formData.checkIn"
-                    [min]="minCheckInDate" required>
+        <form [formGroup]="reservaForm" (ngSubmit)="CrearReserva()">
+            <h4><i class="bi bi-calendar"></i> Fechas de Reserva</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="checkIn" class="form-label">Fecha de Entrada</label>
+                    <input type="date" id="checkIn" class="form-control" [(ngModel)]="formData.checkIn"
+                        [min]="minCheckInDate"  formControlName="fecha_entrada" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="checkOut" class="form-label">Fecha de Salida</label>
+                    <input type="date" id="checkOut" class="form-control" [(ngModel)]="formData.checkOut" 
+                        [min]="formData.checkIn || minCheckInDate"  formControlName="fecha_salida" required>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="checkOut" class="form-label">Fecha de Salida</label>
-                <input type="date" id="checkOut" class="form-control" [(ngModel)]="formData.checkOut"
-                    [min]="formData.checkIn || minCheckInDate" required>
-            </div>
-        </div>
+        </form>
     </div>
 
 
@@ -120,43 +122,45 @@
     </div>
 
     <div class="form-section mb-5">
-        <h4><i class="bi bi-credit-card"></i> Información de Pago</h4>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
-                <select id="tipoTarjeta" class="form-select" [(ngModel)]="formData.tipoTarjeta" required>
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="Visa">Visa</option>
-                    <option value="MasterCard">MasterCard</option>
-                    <option value="American Express">American Express</option>
-                </select>
+        <form [formGroup]="pagoForm" (ngSubmit)="CrearPago()">
+            <h4><i class="bi bi-credit-card"></i> Información de Pago</h4>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
+                    <select id="tipoTarjeta" class="form-select"  [(ngModel)]="formData.tipoTarjeta" formControlName="metodo_pago" required>
+                        <option value="" disabled selected>Seleccionar</option>
+                        <option value="Tarjeta">Visa</option>
+                        <option value="Tarjeta">MasterCard</option>
+                        <option value="Tarjeta">American Express</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
+                    <input type="text" id="numTarjeta" class="form-control" [(ngModel)]="formData.numTarjeta" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
+                    <input type="text" id="expTarjeta" class="form-control" [(ngModel)]="formData.expTarjeta"
+                        placeholder="MM/AA" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="cvcTarjeta" class="form-label">CVC</label>
+                    <input type="text" id="cvcTarjeta" class="form-control" [(ngModel)]="formData.cvcTarjeta" required>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
-                <input type="text" id="numTarjeta" class="form-control" [(ngModel)]="formData.numTarjeta" required>
-            </div>
-            <div class="col-md-2">
-                <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
-                <input type="text" id="expTarjeta" class="form-control" [(ngModel)]="formData.expTarjeta"
-                    placeholder="MM/AA" required>
-            </div>
-            <div class="col-md-2">
-                <label for="cvcTarjeta" class="form-label">CVC</label>
-                <input type="text" id="cvcTarjeta" class="form-control" [(ngModel)]="formData.cvcTarjeta" required>
-            </div>
-        </div>
 
-        <div class="row g-3 mt-3">
-            <div class="col-md-4">
-                <label for="montoAPagar" class="form-label">Monto a Pagar</label>
-                <input type="number" id="montoAPagar" class="form-control" [(ngModel)]="formData.montoAPagar" required>
+            <div class="row g-3 mt-3">
+                <div class="col-md-4">
+                    <label for="montoAPagar" class="form-label">Monto a Pagar</label>
+                    <input type="number" id="montoAPagar" class="form-control" [(ngModel)]="formData.montoAPagar" formControlName="monto" required>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
 
     <div class="text-center mt-4">
-        <button class="btn btn-success btn-lg" (click)="GuardarUsuario();procesarPago()" 
+        <button class="btn btn-success btn-lg" (click)="GuardarUsuario();procesarPago()"
             [disabled]="isProcessingPayment">
             <i [class.bi-check-circle]="!isProcessingPayment" [class.bi-hourglass-split]="isProcessingPayment"></i>
             {{ isProcessingPayment ? 'Procesando Pago...' : 'Confirmar Reserva' }}
