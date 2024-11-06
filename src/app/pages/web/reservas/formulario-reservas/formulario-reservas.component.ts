@@ -17,27 +17,8 @@ import { Pasarela } from '../../../../Interfaces/Pasarela/pasarela.interface';
 export class FormularioReservasComponent {
   id_habitacion: number | null = null;
   formData = {
-    checkIn: '',
-    checkOut: '',
-    nombre: '',
-    apellido: '',
-    tipoDocumento: '',
-    documento: '',
-    fechaNacimiento: '',
-    email: '',
-    telefono: '',
-    ciudad: '',
-    pais: '',
-    direccion: '',
     acompanantes: [{ nombre: '', tipoDocumento: '', documento: '' }],
-    tipoTarjeta: '',
-    numTarjeta: '',
-    expTarjeta: '',
-    cvcTarjeta: '',
-    montoAPagar: 0
   };
-
-
   acompananteForm: FormGroup;
   usuarioForm: FormGroup;
   reservaForm: FormGroup;
@@ -47,7 +28,6 @@ export class FormularioReservasComponent {
   minBirthDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0];
   showModal: boolean = false;
   isProcessingPayment: boolean = false;
-  ratePerNight: number = 100;
   Id_usuario: number | undefined;
   ID_reserva: number | undefined;
   fechaReserva = new Date().toISOString().split('T')[0]
@@ -93,36 +73,33 @@ export class FormularioReservasComponent {
   agregarAcompanante() {
     this.formData.acompanantes.push({ nombre: '', tipoDocumento: '', documento: '' });
   }
-
   esFormularioValido(): boolean {
-    const { checkIn, checkOut, nombre, apellido, tipoDocumento, documento, fechaNacimiento, email, telefono, tipoTarjeta, numTarjeta, expTarjeta, cvcTarjeta, montoAPagar } = this.formData;
-
-
-    if (!checkIn || !checkOut || !nombre || !apellido || !tipoDocumento || !documento || !fechaNacimiento || !email || !telefono || !tipoTarjeta || !numTarjeta || !expTarjeta || !cvcTarjeta || !montoAPagar) {
+    const isAcompananteFormFilled = Object.values(this.acompananteForm.value).some(value => value);
+    if (!this.usuarioForm.valid) {
+        console.error('usuarioForm inválido:', this.usuarioForm.errors);
+        return false;
+    }
+    if (isAcompananteFormFilled && !this.acompananteForm.valid) {
+      console.error('acompananteForm inválido:', this.acompananteForm.errors);
       return false;
     }
+    if (!this.reservaForm.valid) {
+        console.error('reservaForm inválido:', this.reservaForm.errors);
+        return false;
+    }
+    if (!this.pagoForm.valid) {
+        console.error('pagoForm inválido:', this.pagoForm.errors);
+        return false;
+    }
 
-    const birthDate = new Date(fechaNacimiento);
-    const today = new Date();
-    const minDate = new Date(today.setFullYear(today.getFullYear() - 18));
+    const birthDate = new Date(this.usuarioForm.get('fecha_nacimiento')?.value);
+    const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
     if (birthDate > minDate) {
-      return false;
+        console.error('El usuario debe ser mayor de 18 años.');
+        return false;
     }
-
     return true;
-  }
-
-  calcularMontoAPagar() {
-    const checkInDate = new Date(this.formData.checkIn);
-    const checkOutDate = new Date(this.formData.checkOut);
-
-    if (checkInDate && checkOutDate && checkInDate < checkOutDate) {
-      const nights = (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24);
-      this.formData.montoAPagar = nights * this.ratePerNight;
-    } else {
-      this.formData.montoAPagar = 0;
-    }
-  }
+}
 
   procesarPago() {
     if (this.esFormularioValido()) {

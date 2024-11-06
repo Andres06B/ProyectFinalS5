@@ -1,7 +1,5 @@
-<form action="">
 <div class="container my-4 p-4 border rounded shadow-lg">
     <h2 class="text-center mb-4">Formulario de Reserva</h2>
-
 
     <div class="form-section mb-5">
         <form [formGroup]="reservaForm" (ngSubmit)="CrearReserva()">
@@ -9,18 +7,17 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="checkIn" class="form-label">Fecha de Entrada</label>
-                    <input type="date" id="checkIn" class="form-control" [(ngModel)]="formData.checkIn"
-                        [min]="minCheckInDate"  formControlName="fecha_entrada" required>
+                    <input type="date" id="checkIn" class="form-control" 
+                        [min]="minCheckInDate" formControlName="fecha_entrada" required>
                 </div>
                 <div class="col-md-6">
                     <label for="checkOut" class="form-label">Fecha de Salida</label>
-                    <input type="date" id="checkOut" class="form-control" [(ngModel)]="formData.checkOut" 
-                        [min]="formData.checkIn || minCheckInDate"  formControlName="fecha_salida" required>
+                    <input type="date" id="checkOut" class="form-control" 
+                        [min]="reservaForm.get('fecha_entrada')?.value || minCheckInDate" formControlName="fecha_salida" required>
                 </div>
             </div>
         </form>
     </div>
-
 
     <div class="form-section mb-5">
         <h4><i class="bi bi-person"></i> Datos Personales</h4>
@@ -28,18 +25,15 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" formControlName="nombre"
-                        [(ngModel)]="formData.nombre" required>
+                    <input type="text" id="nombre" class="form-control" formControlName="nombre" required>
                 </div>
                 <div class="col-md-6">
                     <label for="apellido" class="form-label">Apellido</label>
-                    <input type="text" id="apellido" class="form-control" formControlName="apellido"
-                        [(ngModel)]="formData.apellido" required>
+                    <input type="text" id="apellido" class="form-control" formControlName="apellido" required>
                 </div>
                 <div class="col-md-4">
                     <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
-                    <select id="tipoDocumento" class="form-select" formControlName="tipo_documento"
-                        [(ngModel)]="formData.tipoDocumento" required>
+                    <select id="tipoDocumento" class="form-select" formControlName="tipo_documento" required>
                         <option value="" disabled selected>Seleccionar</option>
                         <option value="CC">Cedula de ciudadanía</option>
                         <option value="Pasaporte">Pasaporte</option>
@@ -48,43 +42,36 @@
                 </div>
                 <div class="col-md-4">
                     <label for="documento" class="form-label">Número de Documento</label>
-                    <input type="text" id="documento" class="form-control" formControlName="numero_documento"
-                        [(ngModel)]="formData.documento" required>
+                    <input type="text" id="documento" class="form-control" formControlName="numero_documento" required>
                 </div>
                 <div class="col-md-4">
                     <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" id="fechaNacimiento" class="form-control" formControlName="fecha_nacimiento"
-                        [(ngModel)]="formData.fechaNacimiento" [max]="minBirthDate" required>
+                    <input type="date" id="fechaNacimiento" class="form-control" formControlName="fecha_nacimiento" 
+                        [max]="minBirthDate" required>
                 </div>
                 <div class="col-md-6">
                     <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" id="email" class="form-control" formControlName="email"
-                        [(ngModel)]="formData.email" required>
+                    <input type="email" id="email" class="form-control" formControlName="email" required>
                 </div>
                 <div class="col-md-6">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" id="telefono" class="form-control" formControlName="telefono"
-                        [(ngModel)]="formData.telefono" required>
+                    <input type="tel" id="telefono" class="form-control" formControlName="telefono" required>
                 </div>
                 <div class="col-md-6">
                     <label for="ciudad" class="form-label">Ciudad</label>
-                    <input type="text" id="ciudad" class="form-control" formControlName="ciudad"
-                        [(ngModel)]="formData.ciudad" required>
+                    <input type="text" id="ciudad" class="form-control" formControlName="ciudad" required>
                 </div>
                 <div class="col-md-6">
                     <label for="pais" class="form-label">País</label>
-                    <input type="text" id="pais" class="form-control" formControlName="pais" [(ngModel)]="formData.pais"
-                        required>
+                    <input type="text" id="pais" class="form-control" formControlName="pais" required>
                 </div>
                 <div class="col-md-12">
                     <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" id="direccion" class="form-control" formControlName="direccion"
-                        [(ngModel)]="formData.direccion" required>
+                    <input type="text" id="direccion" class="form-control" formControlName="direccion" required>
                 </div>
             </div>
         </form>
     </div>
-
 
     <div class="form-section mb-5">
         <form [formGroup]="acompananteForm" (ngSubmit)="GuardarAcompanante()">
@@ -95,13 +82,11 @@
                 <div class="row g-3">
                     <div class="col-md-4">
                         <label for="nombreAcompanante{{i}}" class="form-label">Nombre</label>
-                        <input type="text" id="nombreAcompanante{{i}}" class="form-control"
-                            [(ngModel)]="acompanante.nombre" formControlName="nombre" required>
+                        <input type="text" id="nombreAcompanante{{i}}" class="form-control" formControlName="nombre" required>
                     </div>
                     <div class="col-md-4">
                         <label for="tipoDocumentoAcompanante{{i}}" class="form-label">Tipo de Documento</label>
-                        <select id="tipoDocumentoAcompanante{{i}}" class="form-select"
-                            [(ngModel)]="acompanante.tipoDocumento" formControlName="tipo_documento" required>
+                        <select id="tipoDocumentoAcompanante{{i}}" class="form-select" formControlName="tipo_documento" required>
                             <option value="" disabled selected>Seleccionar</option>
                             <option value="CC">Cedula de ciudadanía</option>
                             <option value="Pasaporte">Pasaporte</option>
@@ -110,8 +95,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="documentoAcompanante{{i}}" class="form-label">Documento</label>
-                        <input type="text" id="documentoAcompanante{{i}}" class="form-control"
-                            [(ngModel)]="acompanante.documento" formControlName="numero_documento" required>
+                        <input type="text" id="documentoAcompanante{{i}}" class="form-control" formControlName="numero_documento" required>
                     </div>
                 </div>
             </div>
@@ -127,7 +111,7 @@
             <div class="row g-3">
                 <div class="col-md-4">
                     <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
-                    <select id="tipoTarjeta" class="form-select"  [(ngModel)]="formData.tipoTarjeta" formControlName="metodo_pago" required>
+                    <select id="tipoTarjeta" class="form-select" formControlName="metodo_pago" required>
                         <option value="" disabled selected>Seleccionar</option>
                         <option value="Tarjeta">Visa</option>
                         <option value="Tarjeta">MasterCard</option>
@@ -136,36 +120,35 @@
                 </div>
                 <div class="col-md-4">
                     <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
-                    <input type="text" id="numTarjeta" class="form-control" [(ngModel)]="formData.numTarjeta" required>
+                    <input type="text" id="numTarjeta" class="form-control"  required>
                 </div>
                 <div class="col-md-2">
                     <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
-                    <input type="text" id="expTarjeta" class="form-control" [(ngModel)]="formData.expTarjeta"
-                        placeholder="MM/AA" required>
+                    <input type="text" id="expTarjeta" class="form-control"  placeholder="MM/AA" required>
                 </div>
                 <div class="col-md-2">
                     <label for="cvcTarjeta" class="form-label">CVC</label>
-                    <input type="text" id="cvcTarjeta" class="form-control" [(ngModel)]="formData.cvcTarjeta" required>
+                    <input type="text" id="cvcTarjeta" class="form-control"  required>
                 </div>
             </div>
 
             <div class="row g-3 mt-3">
                 <div class="col-md-4">
                     <label for="montoAPagar" class="form-label">Monto a Pagar</label>
-                    <input type="number" id="montoAPagar" class="form-control" [(ngModel)]="formData.montoAPagar" formControlName="monto" required>
+                    <input type="number" id="montoAPagar" class="form-control" formControlName="monto" required>
                 </div>
             </div>
         </form>
     </div>
 
-
     <div class="text-center mt-4">
-        <button class="btn btn-success btn-lg" (click)="GuardarUsuario();procesarPago()"
+        <button class="btn btn-success btn-lg" (click)="GuardarUsuario(); procesarPago()"
             [disabled]="isProcessingPayment">
             <i [class.bi-check-circle]="!isProcessingPayment" [class.bi-hourglass-split]="isProcessingPayment"></i>
             {{ isProcessingPayment ? 'Procesando Pago...' : 'Confirmar Reserva' }}
         </button>
     </div>
+
 
     <div *ngIf="showModal" class="modal-backdrop d-flex align-items-center justify-content-center">
         <div class="modal-content text-center p-4">
