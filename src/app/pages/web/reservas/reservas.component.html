@@ -149,7 +149,7 @@
             </ul>
             <div class="d-flex justify-content-between align-items-center">
               <span class="text-muted"><strong>Precio:</strong> ${{ habitacion.precio }}</span>
-              <button (click)="seleccionarHabitacion(habitacion)" class="btn btn-primary">
+              <button (click)="seleccionarHabitacion(habitacion)" class="btn btn-primary" [disabled]="habitacion.estado !== 'disponible'">
                   <i class="bi bi-calendar-plus" ></i> Reservar
               </button>
             </div>
