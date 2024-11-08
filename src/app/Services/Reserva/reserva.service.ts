@@ -19,4 +19,8 @@ export class ReservaService {
   obtenerReserva(idUsuario: number, fechaReserva: Date): Observable<Reserva> {
     return this.http.get<Reserva>(this.ApiUrlReserva + '/' + idUsuario + '/' + fechaReserva);
   }
+
+  obtenerReservaPorId(id: number): Observable<Reserva>{
+    return this.http.get<Reserva>(this.ApiUrlReserva + '/' + id);
+  }
 }

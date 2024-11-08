@@ -6,17 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-  seccionActual = 'bienvenida'; // Por defecto, muestra la bienvenida
+  seccionActual = 'bienvenida'; 
 
-  // Función que cambia la sección actual según el botón del footer
+
   cambiarSeccion(seccion: string) {
     this.seccionActual = seccion;
   }
 
-  ngOnInit() {
-    const reservaId = sessionStorage.getItem('ReservaID');
-    if (reservaId) {
-      console.log('ID de reserva cargada:', reservaId);
-    }
-  }
 }

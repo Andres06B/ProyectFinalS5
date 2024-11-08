@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { ReservaService } from '../../../Services/Reserva/reserva.service';
+import { Reserva } from '../../../Interfaces/Reserva/reserva.interface';
+import { HabitacionService } from '../../../Services/Habitacion/habitacion.service';
+import { Habitacion } from '../../../Interfaces/habitacion/habitacion.interface';
+import { map } from 'rxjs';
 
-interface Room {
-  name: string;
-  icon: string;
-  description: string;
-  services: string[];
-}
 @Component({
   selector: 'app-habitaciones-app',
   templateUrl: './habitaciones-app.component.html',
@@ -14,12 +13,19 @@ interface Room {
   
   
 export class HabitacionesAppComponent {
-  habitaciones = [
-    { nombre: 'Suite Ejecutiva', detalles: 'Capacidad: 2 personas, vista al mar, incluye desayuno' },
-    { nombre: 'Habitación Doble', detalles: 'Capacidad: 2 personas, vista a la ciudad, incluye wifi' },
-    { nombre: 'Habitación Familiar', detalles: 'Capacidad: 4 personas, balcón, incluye desayuno y wifi' },
-  ];
 
+  idRoom!: number;
+  reservaId!: number;
+  habitacion!: Habitacion;
+  constructor(private reservaService: ReservaService, private habitacionService: HabitacionService) { }
+
+  ngOnInit() {
+    this.reservaId = Number(sessionStorage.getItem('ReservaID'));
+    if (this.reservaId) {
+      this.obtenerReservaParaHabitacion();
+    }
+  }
+  
   habitacionSeleccionada: any = null;
   isModalOpen: boolean = false;
 
@@ -32,4 +38,29 @@ export class HabitacionesAppComponent {
     this.isModalOpen = false;
     this.habitacionSeleccionada = null;
   }
+
+  obtenerReservaParaHabitacion(){
+    this.reservaService.obtenerReservaPorId(this.reservaId).subscribe((reserva: Reserva) => {
+      this.idRoom = reserva.id_habitacion;
+      this.obtenerHabtacion();
+    });
+  }
+
+  obtenerHabtacion() {
+    this.habitacionService.obtenerHabitacion(this.idRoom)
+      .pipe(
+        map((habitacion: any) => ({
+          id_habitacion: habitacion.id_habitacion,
+          nombre: habitacion.nombre,
+          tipo: habitacion.tipo,
+          precio: habitacion.precio,
+          estado: habitacion.estado
+        }))
+      )
+      .subscribe((habitacion: Habitacion) => {
+        this.habitacion = habitacion; 
+      });
+  }
+  
 }
+

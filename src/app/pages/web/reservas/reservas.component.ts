@@ -68,7 +68,6 @@ export class ReservasComponent {
       })))
     ).subscribe((habitaciones: Habitacion[]) => {
       this.habitaciones = habitaciones;
-      console.log(habitaciones);
     });
   }
 

@@ -15,4 +15,8 @@ export class HabitacionService {
   obtenerHabitaciones(): Observable<Habitacion[]> {
     return this.http.get<Habitacion[]>(this.baseUrl);
   }
+
+  obtenerHabitacion(id: number): Observable<Habitacion> {
+    return this.http.get<Habitacion>(this.baseUrl + '/' + id);
+  }
 }
