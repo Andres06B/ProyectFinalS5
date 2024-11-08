@@ -3,14 +3,14 @@
     <p class="description">Información sobre tus acompañantes durante la estancia.</p>
   
     <div class="companions-container">
-      <div class="companion-card" *ngFor="let companion of companions">
+      <div class="companion-card" *ngFor="let companion of acompanantes">
         <div class="card-header">
           <div class="icon-container">
             <i class="companion-icon bi bi-person-fill"></i>
           </div>
           <div class="companion-info">
-            <h2>{{ companion.name }}</h2>
-            <p>{{ companion.documentType }}: {{ companion.documentNumber }}</p>
+            <h2>{{ companion.nombre}}</h2>
+            <p>{{ companion.tipo_documento }}: {{ companion.numero_documento }}</p>
           </div>
         </div>
         <div class="card-body">
@@ -24,14 +24,14 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ selectedCompanion.name }}</h5>
+            <h5 class="modal-title">{{ selectedCompanion.nombre }}</h5>
             <button type="button" class="close" (click)="closeCompanionDetails()" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p><strong>Tipo de Documento:</strong> {{ selectedCompanion.documentType }}</p>
-            <p><strong>Número de Documento:</strong> {{ selectedCompanion.documentNumber }}</p>
+            <p><strong>Tipo de Documento:</strong> {{ selectedCompanion.tipo_documento}}</p>
+            <p><strong>Número de Documento:</strong> {{ selectedCompanion.numero_documento }}</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="closeCompanionDetails()">Cerrar</button>

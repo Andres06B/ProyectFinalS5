@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReservaService } from '../../Services/Reserva/reserva.service';
+import { UsuariosService } from '../../Services/Usuarios/usuarios.service';
 
 @Component({
   selector: 'app-navbard2',
@@ -7,18 +9,23 @@ import { Router } from '@angular/router';
   styleUrl: './navbard2.component.css'
 })
 export class Navbard2Component {
-  userName = 'Carlos Manuel';
-  userLastName = 'Pérez';
-  userEmail = 'CarlosMperez@example.com';
-  userNationality = 'Colombiana';
-  userAge = 25;
-  profilePicture = 'https://b2472105.smushcdn.com/2472105/wp-content/uploads/2023/01/Perfil-Profesional-_63-819x1024.jpg?lossy=1&strip=1&webp=1';
+  userName = '';
+  userLastName = '';
+  userEmail = '';
+  userNationality = '';
+  profilePicture = '';
   showUserProfile = false;
   showConfirmModal = false; 
   loading = false;
+  reservaId!: number;
+  UsuarioId!: number;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private reservaService:ReservaService, private usuarioService: UsuariosService){ }
 
+  ngOnInit() {
+    this.reservaId = Number(sessionStorage.getItem('ReservaID'));
+    this.buscarReserva();
+  }
   
   toggleProfile() {
     this.showUserProfile = !this.showUserProfile;
@@ -58,4 +65,23 @@ export class Navbard2Component {
       reader.readAsDataURL(input.files[0]);
     }
   }
+
+  buscarReserva() {
+    this.reservaService.obtenerReservaPorId(this.reservaId).subscribe((reserva: any) => {
+      this.UsuarioId = reserva.id_usuario;
+      this.buscarUsuario();
+    });
+  }
+
+  buscarUsuario() {
+    this.usuarioService.obtenerUsuarioPorId(this.UsuarioId).subscribe((usuario: any) => {
+      this.userName = usuario.nombre;
+      this.userLastName = usuario.apellido;
+      this.userEmail = usuario.email;
+      this.userNationality = usuario.pais;
+    });
+  }
+
+
+
 }

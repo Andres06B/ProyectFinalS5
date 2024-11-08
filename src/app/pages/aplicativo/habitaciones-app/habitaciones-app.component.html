@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="title">Habitaciones Reservadas</h2>
+  <h2 class="title">Habitación Reservada</h2>
   <table class="custom-table">
     <thead>
       <tr>
@@ -9,8 +9,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let habitacion of habitaciones; let i = index" class="table-row">
-        <td>{{ i + 1 }}</td>
+
+      <tr *ngIf="habitacion" class="table-row">
+        <td>1</td>
         <td>{{ habitacion.nombre }}</td>
         <td>
           <button class="btn" (click)="abrirModal(habitacion)">
@@ -28,7 +29,9 @@
         <span class="close" (click)="cerrarModal()">&times;</span>
       </div>
       <div class="modal-body">
-        {{ habitacionSeleccionada?.detalles }}
+        <p>Tipo: {{ habitacionSeleccionada?.tipo }}</p>
+        <p>Precio: {{ habitacionSeleccionada?.precio | currency }}</p>
+        <p>Estado: {{ habitacionSeleccionada?.estado }}</p>
       </div>
       <div class="modal-footer">
         <button class="btn" (click)="cerrarModal()">Cerrar</button>

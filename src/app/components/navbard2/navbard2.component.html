@@ -19,7 +19,6 @@
         </a>
       </div>
   
-     
       <div class="user-profile ms-3 d-flex align-items-center" (click)="toggleProfile()">
         <img [src]="profilePicture" alt="Foto Usuario" class="rounded-circle profile-img border shadow-sm" width="45" height="45">
         <div class="user-info ms-2">
@@ -36,12 +35,11 @@
   <section *ngIf="showUserProfile" class="profile-section p-4 bg-light border rounded shadow-lg" (click)="$event.stopPropagation()">
     <h5>Perfil de Usuario</h5>
     <div class="d-flex align-items-center mb-4">
-      <img [src]="profilePicture" alt="Foto Usuario" class="rounded-circle border profile-picture" width="120" height="120">
+      <img [src]="profilePicture" alt="" class="rounded-circle border profile-picture" width="120" height="120">
       <div class="ms-3">
         <p><strong>Nombre:</strong> {{ userName }} {{ userLastName }}</p>
         <p><strong>Correo:</strong> {{ userEmail }}</p>
         <p><strong>Nacionalidad:</strong> {{ userNationality }}</p>
-        <p><strong>Edad:</strong> {{ userAge }} años</p>
   
         
         <div class="change-pic-container">

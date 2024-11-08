@@ -10,7 +10,7 @@ export interface Usuario {
     ciudad: string;
     pais: string;
     direccion: string;
-    acompañantes?: Acompañante[];
+    acompañantes: Acompañante[];
 }
 
 export interface Acompañante {

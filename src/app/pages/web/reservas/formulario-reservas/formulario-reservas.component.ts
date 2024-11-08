@@ -66,7 +66,6 @@ export class FormularioReservasComponent {
 
   ngOnInit() {
     const id = sessionStorage.getItem('Habitacion seleccionada');
-    console.log('ID de habitación seleccionada: ', id);
     if(id) this.id_habitacion = Number(id);
   }
 
@@ -76,19 +75,15 @@ export class FormularioReservasComponent {
   esFormularioValido(): boolean {
     const isAcompananteFormFilled = Object.values(this.acompananteForm.value).some(value => value);
     if (!this.usuarioForm.valid) {
-        console.error('usuarioForm inválido:', this.usuarioForm.errors);
         return false;
     }
     if (isAcompananteFormFilled && !this.acompananteForm.valid) {
-      console.error('acompananteForm inválido:', this.acompananteForm.errors);
       return false;
     }
     if (!this.reservaForm.valid) {
-        console.error('reservaForm inválido:', this.reservaForm.errors);
         return false;
     }
     if (!this.pagoForm.valid) {
-        console.error('pagoForm inválido:', this.pagoForm.errors);
         return false;
     }
 
@@ -128,7 +123,7 @@ export class FormularioReservasComponent {
       console.log('Datos enviados al backend:', Usuario); 
       this.usuario.guardarUsuario(Usuario).subscribe({
         next: (usuarioGuardado: Usuario) => {
-          console.log('Usuario guardado:', usuarioGuardado);
+          // console.log('Usuario guardado:', usuarioGuardado);
           this.BuscarUsuario();
         },
         error: (error: any) => {
@@ -141,10 +136,10 @@ export class FormularioReservasComponent {
   BuscarUsuario(){
     const nombre= this.usuarioForm.value.nombre;
     const apellido= this.usuarioForm.value.apellido;
-    console.log('Nombre y Apellido:', nombre, apellido);
+    //console.log('Nombre y Apellido:', nombre, apellido);
     this.usuario.obtenerUsuario(nombre, apellido).subscribe((usuario: Usuario) => {
       this.Id_usuario = usuario.id_usuario;
-      console.log('Usuario obtenido con el ID:', usuario.id_usuario);
+      //console.log('Usuario obtenido con el ID:', usuario.id_usuario);
       this.GuardarAcompanante();
       this.CrearReserva();
     });
@@ -160,10 +155,10 @@ export class FormularioReservasComponent {
       console.log('Datos enviados al backend:', Acompañante);
       this.usuario.guardarAcompañante(Acompañante).subscribe({
         next: (acompañanteGuardado: Acompañante) => {
-          console.log('Acompañante guardado:', acompañanteGuardado);
+          //console.log('Acompañante guardado:', acompañanteGuardado);
         },
         error: (error: any) => {
-          console.error('Error al guardar el acompañante:', error);
+          // console.error('Error al guardar el acompañante:', error);
         }
       });
     }
@@ -180,11 +175,11 @@ export class FormularioReservasComponent {
       console.log('Datos enviados al backend:', reserva);
       this.reserva.crearReserva(reserva).subscribe({
         next: (reservaGuardada: Reserva) => {
-          console.log('Reserva guardada:', reservaGuardada);
+          // console.log('Reserva guardada:', reservaGuardada);
           this.ObtenerReserva();
         },
         error: (error: any) => {
-          console.error('Error al guardar la reserva:', error);
+         // console.error('Error al guardar la reserva:', error);
         }
       });
     }
@@ -197,7 +192,7 @@ export class FormularioReservasComponent {
     if(idUsuario) {
       this.reserva.obtenerReserva(idUsuario, fechaEntrada).subscribe((reserva: Reserva) =>{
         this.ID_reserva = reserva.id_reserva;
-        console.log('Reserva obtenida:', reserva);
+        // console.log('Reserva obtenida:', reserva);
         this.CrearPago();
       });
     }
@@ -214,10 +209,10 @@ export class FormularioReservasComponent {
       console.log('Datos enviados al backend:', pago);
       this.pago.crearPago(pago).subscribe({
         next: (pagoGuardado: Pasarela) => {
-          console.log('Pago guardado:', pagoGuardado);
+          //console.log('Pago guardado:', pagoGuardado);
         },
         error: (error: any) => {
-          console.error('Error al guardar el pago:', error);
+          //console.error('Error al guardar el pago:', error);
         }
       });
     }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ReservaService } from '../../../Services/Reserva/reserva.service';
+import { map } from 'rxjs';
+import { Reserva } from '../../../Interfaces/Reserva/reserva.interface';
 
 @Component({
   selector: 'app-estadia',
@@ -6,13 +9,18 @@ import { Component } from '@angular/core';
   styleUrl: './estadia.component.css'
 })
 export class EstadiaComponent {
-  habitaciones = [
-    { fechaEntrada: '2024-10-15', fechaSalida: '2024-10-20', numHabitaciones: 2, ocupacion: 4 },
-    { fechaEntrada: '2024-11-01', fechaSalida: '2024-11-05', numHabitaciones: 1, ocupacion: 2 },
-    { fechaEntrada: '2024-12-10', fechaSalida: '2024-12-15', numHabitaciones: 3, ocupacion: 6 }
-  ];
+  reservaId!: number;
+  reserva!: Reserva;
+  ngOnInit(){
+    this.reservaId = Number(sessionStorage.getItem('ReservaID'));
+    if (this.reservaId) {
+      this.obtenerReserva();
+    }
+  }
+  constructor(private ReservaService: ReservaService){}
+
   isModalOpen = false;
-  habitacionSeleccionada: any;
+  habitacionSeleccionada: Reserva | null = null;
 
   abrirModal(habitacion: any) {
     this.habitacionSeleccionada = habitacion;
@@ -23,4 +31,21 @@ export class EstadiaComponent {
     this.isModalOpen = false;
     this.habitacionSeleccionada = null;
   }
+
+  obtenerReserva(){
+    this.ReservaService.obtenerReservaPorId(this.reservaId).pipe(
+      map((reserva: any) =>({
+        fecha_reserva: reserva.fecha_reserva,
+        fecha_entrada: reserva.fecha_entrada,
+        fecha_salida: reserva.fecha_salida,
+        estado: reserva.estado,
+        id_usuario: reserva.id_usuario,
+        id_habitacion: reserva.id_habitacion,
+        id_reserva: reserva.id_reserva
+      }))
+    ).subscribe((reserva: Reserva) => {
+      this.reserva = reserva;
+    }); 
+  }
+
 }

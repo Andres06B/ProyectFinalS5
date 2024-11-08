@@ -17,6 +17,10 @@ export class UsuariosService {
     return this.http.get<Usuario>(this.ApiUrlUser);
   }
 
+  obtenerUsuarioPorId(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(this.ApiUrlUser + '/' + id);
+  }
+
   obtenerUsuario(nombre: string, apellido: string): Observable<Usuario> {
     return this.http.get<Usuario>(this.ApiUrlUser + '/' + nombre + '/' + apellido);
   }
