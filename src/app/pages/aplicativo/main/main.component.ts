@@ -12,4 +12,11 @@ export class MainComponent {
   cambiarSeccion(seccion: string) {
     this.seccionActual = seccion;
   }
+
+  ngOnInit() {
+    const reservaId = sessionStorage.getItem('ReservaID');
+    if (reservaId) {
+      console.log('ID de reserva cargada:', reservaId);
+    }
+  }
 }
