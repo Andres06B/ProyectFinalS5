@@ -1,6 +1,6 @@
 <div class="background-container">
   <div class="login-container">
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login-form">
+    <form [formGroup]="logInForm" (ngSubmit)="login()" class="login-form">
       <h2 class="text-center mb-4">New Iguanas's House</h2>
       
       <div class="text-center mb-4">
@@ -11,23 +11,20 @@
         <h2 class="text-center mb-4">Iniciar Sesión</h2>
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-person"></i></span>
-          <input type="email" class="form-control" [(ngModel)]="email" name="email" placeholder="Correo electrónico" required>
+          <input type="email" class="form-control" name="email" placeholder="Correo electrónico" formControlName="email" required>
         </div>
       </div>
       <div class="form-group mb-3">
         <div class="input-group">
           <span class="input-group-text"><i class="bi bi-lock"></i></span>
-          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="password" name="password" placeholder="Cedula de ciudadania" required>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control"  name="password" placeholder="Cedula de ciudadania" formControlName="password" required>
           <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
             <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
           </button>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="isLoading || !loginForm.valid">Iniciar Sesión</button>
+      <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="isLoading || !logInForm.valid" (click)="login()">Iniciar Sesión</button>
       
-      <div class="form-footer text-center">
-        <a href="#" class="text-muted">¿Olvidaste tu contraseña?</a>
-      </div>
     </form>
   </div>
 
