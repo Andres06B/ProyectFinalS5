@@ -30,10 +30,12 @@ export class FormularioReservasComponent {
   isProcessingPayment: boolean = false;
   Id_usuario: number | undefined;
   ID_reserva: number | undefined;
+  Id_Pago: number | undefined;
+
   fechaReserva = new Date().toISOString().split('T')[0]
   fechaPago = new Date().toISOString().split('T')[0]
 
-  constructor(private router: Router, private usuario: UsuariosService, private reserva: ReservaService, private pago: PasarelaService) { 
+  constructor(private router: Router, private usuario: UsuariosService, private reserva: ReservaService, private pago: PasarelaService) {
     this.usuarioForm = new FormGroup({
       tipo_documento: new FormControl('', [Validators.required]),
       numero_documento: new FormControl('', [Validators.required]),
@@ -66,7 +68,7 @@ export class FormularioReservasComponent {
 
   ngOnInit() {
     const id = sessionStorage.getItem('Habitacion seleccionada');
-    if(id) this.id_habitacion = Number(id);
+    if (id) this.id_habitacion = Number(id);
   }
 
   agregarAcompanante() {
@@ -75,26 +77,26 @@ export class FormularioReservasComponent {
   esFormularioValido(): boolean {
     const isAcompananteFormFilled = Object.values(this.acompananteForm.value).some(value => value);
     if (!this.usuarioForm.valid) {
-        return false;
+      return false;
     }
     if (isAcompananteFormFilled && !this.acompananteForm.valid) {
       return false;
     }
     if (!this.reservaForm.valid) {
-        return false;
+      return false;
     }
     if (!this.pagoForm.valid) {
-        return false;
+      return false;
     }
 
     const birthDate = new Date(this.usuarioForm.get('fecha_nacimiento')?.value);
     const minDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18));
     if (birthDate > minDate) {
-        console.error('El usuario debe ser mayor de 18 años.');
-        return false;
+      alert('El usuario debe ser mayor de 18 años.');
+      return false;
     }
     return true;
-}
+  }
 
   procesarPago() {
     if (this.esFormularioValido()) {
@@ -120,7 +122,7 @@ export class FormularioReservasComponent {
   GuardarUsuario() {
     if (this.usuarioForm.valid) {
       const Usuario: Usuario = this.usuarioForm.value;
-      console.log('Datos enviados al backend:', Usuario); 
+      // console.log('Datos enviados al backend:', Usuario); 
       this.usuario.guardarUsuario(Usuario).subscribe({
         next: (usuarioGuardado: Usuario) => {
           // console.log('Usuario guardado:', usuarioGuardado);
@@ -133,9 +135,9 @@ export class FormularioReservasComponent {
     }
   };
 
-  BuscarUsuario(){
-    const nombre= this.usuarioForm.value.nombre;
-    const apellido= this.usuarioForm.value.apellido;
+  BuscarUsuario() {
+    const nombre = this.usuarioForm.value.nombre;
+    const apellido = this.usuarioForm.value.apellido;
     //console.log('Nombre y Apellido:', nombre, apellido);
     this.usuario.obtenerUsuario(nombre, apellido).subscribe((usuario: Usuario) => {
       this.Id_usuario = usuario.id_usuario;
@@ -149,10 +151,9 @@ export class FormularioReservasComponent {
     if (this.acompananteForm.valid && this.Id_usuario) {
       const Acompañante: Acompañante = {
         ...this.acompananteForm.value,
-        usuario: this.Id_usuario 
+        usuario: this.Id_usuario
       };
-
-      console.log('Datos enviados al backend:', Acompañante);
+      // console.log('Datos enviados al backend:', Acompañante);
       this.usuario.guardarAcompañante(Acompañante).subscribe({
         next: (acompañanteGuardado: Acompañante) => {
           //console.log('Acompañante guardado:', acompañanteGuardado);
@@ -165,21 +166,21 @@ export class FormularioReservasComponent {
   }
 
   CrearReserva() {
-    if(this.reservaForm.valid) {
-      const reserva: Reserva ={
+    if (this.reservaForm.valid) {
+      const reserva: Reserva = {
         ...this.reservaForm.value,
         fecha_reserva: this.fechaReserva,
         id_usuario: this.Id_usuario,
         id_habitacion: this.id_habitacion
       };
-      console.log('Datos enviados al backend:', reserva);
+      // console.log('Datos enviados al backend:', reserva);
       this.reserva.crearReserva(reserva).subscribe({
         next: (reservaGuardada: Reserva) => {
           // console.log('Reserva guardada:', reservaGuardada);
           this.ObtenerReserva();
         },
         error: (error: any) => {
-         // console.error('Error al guardar la reserva:', error);
+          // console.error('Error al guardar la reserva:', error);
         }
       });
     }
@@ -188,9 +189,9 @@ export class FormularioReservasComponent {
   ObtenerReserva() {
     const idUsuario = this.Id_usuario;
     const fechaEntrada = this.reservaForm.value.fecha_entrada;
-    console.log('ID de usuario:', idUsuario);
-    if(idUsuario) {
-      this.reserva.obtenerReserva(idUsuario, fechaEntrada).subscribe((reserva: Reserva) =>{
+    // console.log('ID de usuario:', idUsuario);
+    if (idUsuario) {
+      this.reserva.obtenerReserva(idUsuario, fechaEntrada).subscribe((reserva: Reserva) => {
         this.ID_reserva = reserva.id_reserva;
         // console.log('Reserva obtenida:', reserva);
         this.CrearPago();
@@ -198,18 +199,18 @@ export class FormularioReservasComponent {
     }
   }
 
-  CrearPago(){
-    if(this.pagoForm.valid) {
+  CrearPago() {
+    if (this.pagoForm.valid) {
       const pago: Pasarela = {
         ...this.pagoForm.value,
         id_reserva: this.ID_reserva,
         fecha_pago: this.fechaPago,
         estado: 'pendiente',
       };
-      console.log('Datos enviados al backend:', pago);
+      // console.log('Datos enviados al backend:', pago);
       this.pago.crearPago(pago).subscribe({
         next: (pagoGuardado: Pasarela) => {
-          //console.log('Pago guardado:', pagoGuardado);
+          this.ObtenerPago();
         },
         error: (error: any) => {
           //console.error('Error al guardar el pago:', error);
@@ -217,6 +218,16 @@ export class FormularioReservasComponent {
       });
     }
   };
+
+  ObtenerPago() {
+    if (this.ID_reserva) {
+      this.pago.obtenerPagoByReserva(this.ID_reserva).subscribe((pago: Pasarela) => {
+        this.Id_Pago = pago.id_pago;
+        console.log('Pago obtenido:', pago);
+        sessionStorage.setItem('Pago obtenido', pago.id_pago.toString());
+      });
+    }
+  }
 
 
 
