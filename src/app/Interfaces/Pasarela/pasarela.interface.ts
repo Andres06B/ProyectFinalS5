@@ -1,5 +1,5 @@
 export interface Pasarela {
-    id_pago?: number;
+    id_pago: number;
     id_reserva: number;
     monto: number; 
     metodo_pago: 'tarjeta';
