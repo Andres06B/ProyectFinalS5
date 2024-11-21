@@ -41,19 +41,16 @@ export class LogInComponent {
       const password = this.logInForm.value.password;
       this.authenticationService.login(email, password).subscribe({
         next: (response: any) => {
-          // console.log('Respuesta de login:', response);
           const token = response;
           if (token) {
             this.authenticationService.saveToken(token);
             this.reservaId = this.authenticationService.getReservaId();
             if (this.reservaId !== null) sessionStorage.setItem('ReservaID', this.reservaId.toString());
             this.redirectToMain();
-          } else {
-            // console.error('No se recibió un token válido');
           }
         },
         error: (error: any) => {
-          // console.error('Error en la autenticación:', error);
+          console.error('Error en la autenticación:', error);
         }
       });
       

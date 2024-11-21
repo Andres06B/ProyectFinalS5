@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ReservaService } from '../../../Services/Reserva/reserva.service';
 import { map } from 'rxjs';
 import { Reserva } from '../../../Interfaces/Reserva/reserva.interface';
+import { PasarelaService } from '../../../Services/Pasarela/pasarela.service';
 
 @Component({
   selector: 'app-estadia',
@@ -17,7 +18,7 @@ export class EstadiaComponent {
       this.obtenerReserva();
     }
   }
-  constructor(private ReservaService: ReservaService){}
+  constructor(private ReservaService: ReservaService, private PagoService: PasarelaService){}
 
   isModalOpen = false;
   habitacionSeleccionada: Reserva | null = null;
@@ -46,6 +47,12 @@ export class EstadiaComponent {
     ).subscribe((reserva: Reserva) => {
       this.reserva = reserva;
     }); 
+  }
+
+  cancelarReserva(){
+    this.PagoService.cancelarPago(this.reservaId).subscribe((res: any) => {
+      alert('La reserva ha sido cancelada');
+    });
   }
 
 }
