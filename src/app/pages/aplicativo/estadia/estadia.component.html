@@ -21,7 +21,11 @@
                 <td>
                     <button class="btn" (click)="abrirModal(reserva)">
                         <i class="fas fa-info-circle"></i> Mostrar Detalles
+                    </button> 
+                    <button class="btn" (click)="cancelarReserva()" [disabled]="reserva.estado === 'cancelada'">
+                        <i class="fas fa-trash-alt"></i> Cancelar Reserva
                     </button>
+                         
                 </td>
             </tr>
         </tbody>

@@ -122,10 +122,8 @@ export class FormularioReservasComponent {
   GuardarUsuario() {
     if (this.usuarioForm.valid) {
       const Usuario: Usuario = this.usuarioForm.value;
-      // console.log('Datos enviados al backend:', Usuario); 
       this.usuario.guardarUsuario(Usuario).subscribe({
         next: (usuarioGuardado: Usuario) => {
-          // console.log('Usuario guardado:', usuarioGuardado);
           this.BuscarUsuario();
         },
         error: (error: any) => {
@@ -138,10 +136,8 @@ export class FormularioReservasComponent {
   BuscarUsuario() {
     const nombre = this.usuarioForm.value.nombre;
     const apellido = this.usuarioForm.value.apellido;
-    //console.log('Nombre y Apellido:', nombre, apellido);
     this.usuario.obtenerUsuario(nombre, apellido).subscribe((usuario: Usuario) => {
       this.Id_usuario = usuario.id_usuario;
-      //console.log('Usuario obtenido con el ID:', usuario.id_usuario);
       this.GuardarAcompanante();
       this.CrearReserva();
     });
@@ -153,13 +149,8 @@ export class FormularioReservasComponent {
         ...this.acompananteForm.value,
         usuario: this.Id_usuario
       };
-      // console.log('Datos enviados al backend:', Acompañante);
       this.usuario.guardarAcompañante(Acompañante).subscribe({
-        next: (acompañanteGuardado: Acompañante) => {
-          //console.log('Acompañante guardado:', acompañanteGuardado);
-        },
-        error: (error: any) => {
-          // console.error('Error al guardar el acompañante:', error);
+        next: (acompañanteGuardado: any) => {
         }
       });
     }
@@ -173,14 +164,10 @@ export class FormularioReservasComponent {
         id_usuario: this.Id_usuario,
         id_habitacion: this.id_habitacion
       };
-      // console.log('Datos enviados al backend:', reserva);
+
       this.reserva.crearReserva(reserva).subscribe({
         next: (reservaGuardada: Reserva) => {
-          // console.log('Reserva guardada:', reservaGuardada);
           this.ObtenerReserva();
-        },
-        error: (error: any) => {
-          // console.error('Error al guardar la reserva:', error);
         }
       });
     }
@@ -189,11 +176,9 @@ export class FormularioReservasComponent {
   ObtenerReserva() {
     const idUsuario = this.Id_usuario;
     const fechaEntrada = this.reservaForm.value.fecha_entrada;
-    // console.log('ID de usuario:', idUsuario);
     if (idUsuario) {
       this.reserva.obtenerReserva(idUsuario, fechaEntrada).subscribe((reserva: Reserva) => {
         this.ID_reserva = reserva.id_reserva;
-        // console.log('Reserva obtenida:', reserva);
         this.CrearPago();
       });
     }
@@ -207,13 +192,11 @@ export class FormularioReservasComponent {
         fecha_pago: this.fechaPago,
         estado: 'pendiente',
       };
-      // console.log('Datos enviados al backend:', pago);
       this.pago.crearPago(pago).subscribe({
         next: (pagoGuardado: Pasarela) => {
           this.ObtenerPago();
         },
         error: (error: any) => {
-          //console.error('Error al guardar el pago:', error);
         }
       });
     }
@@ -228,7 +211,4 @@ export class FormularioReservasComponent {
       });
     }
   }
-
-
-
 }

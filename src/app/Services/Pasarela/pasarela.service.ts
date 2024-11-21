@@ -24,5 +24,7 @@ export class PasarelaService {
     return this.http.get<Pasarela>(this.apiUrlPasarela + '/reserva/' + id);
   }
 
-  
+  cancelarPago(id: number): Observable<Pasarela> {
+    return this.http.put<Pasarela>(this.apiUrlPasarela + '/reserva/' + id, null);
+  }
 }
