@@ -22,6 +22,18 @@ export class ReservasComponent {
 
   minDate: string;
 
+  imageLinks: string[] = [
+    "https://cf2.bstatic.com/xdata/images/hotel/max1024x768/562574663.jpg?k=bbce5f9b1ca20d2bd0410fff8bf115fc856a3ae5b3ac85010423e9f3752b3db9&o=&hp=1",
+    "https://www.hotelmorenoviejo.com/wp-content/uploads/2014/11/sencilla.jpg",
+    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/535159405.jpg?k=5bfb0b96ac9da280cff8137376d7d67f9851bcd35a1c468335f06343a9850a70&o=&hp=1",
+    "https://fridahotelunico.com/images/sencilla03.jpg",
+    "https://hoteloroverdesuitesiquitos.com/wp-content/uploads/2021/07/Simple-1-1-scaled.jpg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQf1p930I2BaJzXYjlLy02hTZFvXhgicOOriQ&s",
+    "https://hotelcasablancagirardot.com/wp-content/plugins/vikbooking/site/resources/uploads/1dsc04585.jpg",
+    "https://www.solcaribehotel.com/img/cama-doble-sencilla-1.jpg",
+    "https://i0.wp.com/amenitiz.com/wp-content/uploads/2022/10/kgqgnwmtziuttytvkfru.jpg?fit=2048%2C1365&ssl=1"
+  ];
+
 
   constructor(private service: HabitacionService, private router: Router, ) {	
     const today = new Date();

@@ -109,36 +109,43 @@
         <form [formGroup]="pagoForm" (ngSubmit)="CrearPago()">
             <h4><i class="bi bi-credit-card"></i> Información de Pago</h4>
             <div class="row g-3">
-                <div class="col-md-4">
-                    <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
-                    <select id="tipoTarjeta" class="form-select" formControlName="metodo_pago" required>
-                        <option value="" disabled selected>Seleccionar</option>
-                        <option value="Tarjeta">Visa</option>
-                        <option value="Tarjeta">MasterCard</option>
-                        <option value="Tarjeta">American Express</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
-                    <input type="text" id="numTarjeta" class="form-control"  required>
-                </div>
-                <div class="col-md-2">
-                    <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
-                    <input type="text" id="expTarjeta" class="form-control"  placeholder="MM/AA" required>
-                </div>
-                <div class="col-md-2">
-                    <label for="cvcTarjeta" class="form-label">CVC</label>
-                    <input type="text" id="cvcTarjeta" class="form-control"  required>
-                </div>
+              <div class="col-md-4">
+                <label for="tipoTarjeta" class="form-label">Tipo de Tarjeta</label>
+                <select id="tipoTarjeta" class="form-select" formControlName="metodo_pago" required>
+                  <option value="" disabled selected>Seleccionar</option>
+                  <option value="Tarjeta">Visa</option>
+                  <option value="Tarjeta">MasterCard</option>
+                  <option value="Tarjeta">American Express</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="numTarjeta" class="form-label">Número de Tarjeta</label>
+                <input type="text" id="numTarjeta" class="form-control" required>
+              </div>
+              <div class="col-md-2">
+                <label for="expTarjeta" class="form-label">Fecha de Expiración</label>
+                <input type="text" id="expTarjeta" class="form-control" placeholder="MM/AA" required>
+              </div>
+              <div class="col-md-2">
+                <label for="cvcTarjeta" class="form-label">CVC</label>
+                <input type="text" id="cvcTarjeta" class="form-control" required>
+              </div>
             </div>
-
+          
             <div class="row g-3 mt-3">
-                <div class="col-md-4">
-                    <label for="montoAPagar" class="form-label">Monto a Pagar</label>
-                    <input type="number" id="montoAPagar" class="form-control" formControlName="monto" required>
-                </div>
+              <div class="col-md-4">
+                <label for="montoHabitacion" class="form-label">Monto de la Habitación</label>
+                <input type="number" id="montoHabitacion" class="form-control" [value]="montoHabitacion" readonly>
+              </div>
             </div>
-        </form>
+          
+            <div class="row g-3 mt-3">
+              <div class="col-md-4">
+                <label for="montoAPagar" class="form-label">Monto a Pagar</label>
+                <input type="number" id="montoAPagar" class="form-control" formControlName="monto" required>
+              </div>
+            </div>
+          </form>          
     </div>
 
     <div class="text-center mt-4">

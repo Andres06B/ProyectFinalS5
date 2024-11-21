@@ -136,9 +136,9 @@
       <div class="col-12">
         <h1 style="color: #009970">Habitaciones Disponibles</h1>
       </div>
-      <div class="col-md-4" *ngFor="let habitacion of habitaciones">
+      <div class="col-md-4" *ngFor="let habitacion of habitaciones; let index = index">
         <div class="card mb-4 shadow-sm">
-          <img class="card-img-top"  />
+          <img class="card-img-top" [src]="imageLinks[index]" />
           <div class="card-body">
             <h5 class="card-title">{{ habitacion.nombre }}</h5>
             <p class="card-text">{{ habitacion.tipo}}</p>
